@@ -38,6 +38,28 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+app.post("/api/users/create", async (req, res) => {
+  try {
+    const { reg_no, s_name } = req.body;
+    const newStudent = await pool.query(
+      "INSERT INTO students (reg_no,s_name) VALUES ($1, $2) RETURNING *",
+      [reg_no, s_name]
+    );
+    if (newStudent.rows.length === 0) {
+      return res.status(400).send("Invalid data");
+    } else {
+      console.log("Data inserted successfully");
+      res.status(200).json(newStudent.rows[0]);
+    }
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).send("Database error");
+  }
+});
+
+>>>>>>> dev
 app.get("/api/users/data", async (req, res) => {
   try {
     const { filter, value } = req.query;
