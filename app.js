@@ -18,6 +18,7 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+
 pool.connect((err, client, release) => {
   if (err) {
     console.error("Database connection failed:", err.stack);
@@ -72,7 +73,7 @@ app.get("/api/users/data", async (req, res) => {
       return res.status(200).json(query.rows);
     } else {
       const query = await pool.query("SELECT * FROM students");
-      res.status(200).json(query.rows);
+      res.status(200).json(query.rows[0]);
     }
   } catch (error) {
     console.error("Database error:", error);
